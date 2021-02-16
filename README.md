@@ -1,2 +1,2 @@
 # MYStore
-Store Website with C# MVC and Entity Framework
+Store Website with ASP.NET MVC and Entity Framework

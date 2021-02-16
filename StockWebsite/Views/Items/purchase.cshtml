@@ -1,0 +1,71 @@
+﻿@model StockWebsite.Models.ItemsViewModel
+
+@{
+    ViewBag.Title = "purchase";
+}
+
+<h2>purchase</h2>
+<h4 style="color:red">To Purchase More Than One Item Press Control+Select</h4>
+<div style="font-family:Arial">
+    @using (Html.BeginForm())
+    {
+        @Html.ListBoxFor(x => x.SelectedItems, Model.Items,new
+   {
+       @style = "width:400px; background-color:yellow; padding:20px;",
+       @title = "Select Multiple Options",
+       @align = "left",
+
+   })
+        <br />
+
+        <input type="submit" value="Enter the quantity you want to purchase" class="btn btn-success" />
+        <br />
+        <br />
+        <br />
+        <br />
+    }
+</div>
+
+<table class="table">
+    <tr style="background-color:lime">
+        <th>
+            Invoice Number
+        </th>
+        <th>
+            Invoice Date
+        </th>
+        <th>
+            Items
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var invoice in Model.invoices)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => invoice.InvoiceCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => invoice.InvoiceDate)
+        </td>
+        <td>
+          @{string str = "";}
+            @foreach (var item in invoice.Items)
+            {
+               
+                // @Html.DisplayFor(modelItem => item.ItemName)
+                
+                str += item.ItemName + " , ";
+            }
+             @str
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "EditInvoice", new { id = invoice.InvoiceCode }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Delete", "DeleteInvoice", new { id = invoice.InvoiceCode }, new { @class = "btn btn-danger" })
+        </td>
+
+    </tr>
+    }
+</table>

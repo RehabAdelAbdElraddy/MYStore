@@ -1,0 +1,29 @@
+﻿@model StockWebsite.Models.Item
+
+@{
+    ViewBag.Title = "Purchase";
+}
+
+<h2>Purchase</h2>
+@using (Html.BeginForm("SubmitPurchaseOperation", "Items", FormMethod.Post, new { id = ViewBag.ListofItems }))
+{
+    @Html.AntiForgeryToken()
+
+
+
+
+    foreach (StockWebsite.Models.Item item in (StockWebsite.Models.Item[])ViewBag.ListofItems)
+    {
+        <p>You want to purchase <span style="color:red;font-size:larger"> @item.ItemName</span> The stock contains<span style="color:red;font-size:larger"> @item.ItemQuantity</span> Items of this product </p>
+
+        <p>Enter the Quantity you want to purchase from <span style="color:red;font-size:larger">@item.ItemName</span> </p>
+
+        <input type="number" placeholder="Quantity to purchase" name="Quantities" min="1" />
+        <input type="hidden" name="ProductsName" value="@item.ItemName" />
+        <input type="hidden" name="ProductsIDS" value="@item.ItemCode" />
+        <input type="hidden" name="ProductsQuantities" value="@item.ItemQuantity" />
+
+    }
+    <input type="submit" value="Purchase" class="btn btn-primary" />
+
+}
